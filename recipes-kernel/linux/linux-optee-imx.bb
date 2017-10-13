@@ -11,16 +11,14 @@ S = "${WORKDIR}/git"
 inherit deploy pythonnative autotools
 
 python () {
-    machine = d.getVar("MACHINE", True)
+    arch = d.getVar("DEFAULTTUNE", True)
 
-    if (machine == "imx7dsabresd") or (machine == "imx6qsabresd"):
-        d.setVar("fsl_defconfig", "imx_v7_defconfig")
-        d.setVar("ARCH", "arm")
-    elif machine == "imx8mqevk":
+    if (arch == "aarch64"):
         d.setVar("fsl_defconfig", "defconfig")
         d.setVar("ARCH", "arm64")
     else:
-        bb.err("Optee kernel cannot be built for current MACHINE")
+        d.setVar("fsl_defconfig", "imx_v7_defconfig")
+        d.setVar("ARCH", "arm")
 }
 
 do_compile () {
@@ -37,7 +35,7 @@ do_install () {
 
 do_deploy () {
     install -d ${DEPLOY_DIR_IMAGE}/boot/
-    if [ "${MACHINE}" = "imx8mqevk" ]; then
+    if [ "${DEFAULTTUNE}" = "aarch64" ]; then
         cp -rf ${S}/arch/${ARCH}/boot/Image ${DEPLOY_DIR_IMAGE}/boot/zImage-optee
         cp -rf ${S}/arch/${ARCH}/boot/dts/freescale/fsl-imx8mq-evk.dtb ${DEPLOY_DIR_IMAGE}/boot/
     else

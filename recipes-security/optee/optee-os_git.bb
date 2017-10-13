@@ -176,9 +176,8 @@ do_install () {
 
     # Install the TA devkit
     install -d ${D}/usr/include/optee/export-user_ta_${CURRENT_ARCH}/
-#TODO:
-   for f in ${S}/out/arm-plat-imx/export-ta_${CURRENT_ARCH}/*; do
-#    for f in ${S}/out/arm-plat-imx/export-ta_arm32/*; do
+
+    for f in ${S}/out/arm-plat-imx/export-ta_${CURRENT_ARCH}/*; do
         cp -aR $f ${D}/usr/include/optee/export-user_ta_${CURRENT_ARCH}/
     done
 }

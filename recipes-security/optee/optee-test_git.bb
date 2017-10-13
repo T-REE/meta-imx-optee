@@ -14,7 +14,7 @@ SRCREV = "${AUTOREV}"
 S = "${WORKDIR}/git"
 
 do_compile () {
-    if [ ${MACHINE} = "imx8mqevk" ];then
+    if [ ${DEFAULTTUNE} = "aarch64" ];then
         export TA_DEV_KIT_DIR=${STAGING_INCDIR}/optee/export-user_ta_arm64/
         export ARCH=arm64
     else
@@ -22,8 +22,8 @@ do_compile () {
         export ARCH=arm
     fi
     export OPTEE_CLIENT_EXPORT=${STAGING_DIR_HOST}/usr
-    export CROSS_COMPILE_HOST=${HOST_PREFIX} \
-    export CROSS_COMPILE_TA=${HOST_PREFIX} \
+    export CROSS_COMPILE_HOST=${HOST_PREFIX}
+    export CROSS_COMPILE_TA=${HOST_PREFIX} 
     export CROSS_COMPILE=${HOST_PREFIX}
 
     oe_runmake V=1
@@ -33,7 +33,7 @@ do_install () {
     install -d ${D}/usr/bin
     install ${S}/out/xtest/xtest ${D}/usr/bin/
 
-    if [ ${MACHINE} = "imx8mqevk" ]; then
+    if [ ${DEFAULTTUNE} = "aarch64" ]; then
         install -d ${D}/lib64/optee_armtz
         find ${S}/out/ta -name '*.ta' | while read name; do
             install -m 444 $name ${D}/lib64/optee_armtz/

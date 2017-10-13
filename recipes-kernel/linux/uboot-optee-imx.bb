@@ -45,4 +45,4 @@ do_deploy () {
 }
 
 addtask deploy before do_build after do_install
-#FILES_${PN}="/boot/u-boot-dtb.imx"
+#FILES_${PN}="/boot/u-boot*"

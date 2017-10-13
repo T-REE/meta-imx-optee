@@ -12,7 +12,7 @@ SRCREV = "${AUTOREV}"
 S = "${WORKDIR}/git"
 
 do_compile () {
-    if [ ${MACHINE} = "imx8mqevk" ]; then
+    if [ ${DEFAULTTUNE} = "aarch64" ]; then
         oe_runmake -C ${S} ARCH=arm64
     else
         oe_runmake -C ${S} ARCH=arm
@@ -29,8 +29,8 @@ do_install () {
 }
 
 PACKAGES += "tee-supplicant"
-FILES_${PN} = "${libdir}/* ${includedir}/*"
-FILES_tee-supplicant = "${bindir}/tee-supplicant"
+FILES_${PN} += "${libdir}/* ${includedir}/*"
+FILES_tee-supplicant += "${bindir}/tee-supplicant"
 
 INSANE_SKIP_${PN} = "ldflags dev-elf"
 INSANE_SKIP_${PN}-dev = "ldflags dev-elf"
