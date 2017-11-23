@@ -6,9 +6,9 @@ HOMEPAGE = "http://www.optee.org/"
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://LICENSE.md;md5=daa2bcccc666345ab8940aab1315a4fa"
 
-DEPENDS = "optee-os optee-client linux-optee-imx uboot-optee-imx"
+DEPENDS = "optee-os optee-client"
 
-SRC_URI = "git://sw-stash.freescale.net/scm/imx/imx-optee-test.git;branch=imx_2.5.y;protocol=http"
+SRC_URI = "git://bitbucket.sw.nxp.com/scm/imx/imx-optee-test.git;branch=imx_2.5.y;protocol=http"
 SRCREV = "${AUTOREV}"
 
 S = "${WORKDIR}/git"

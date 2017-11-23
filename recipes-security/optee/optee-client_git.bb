@@ -5,11 +5,16 @@ HOMEPAGE = "http://www.optee.org/"
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=69663ab153298557a59c67a60a743e5b"
 
-#DEPENDS = "python-pycrypto-native"
-SRC_URI = "git://sw-stash.freescale.net/scm/imx/imx-optee-client.git;branch=imx_2.5.y;protocol=http"
+inherit pythonnative systemd
+
+SRC_URI = "git://bitbucket.sw.nxp.com/scm/imx/imx-optee-client.git;branch=imx_2.5.y;protocol=http"
 SRCREV = "${AUTOREV}"
 
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+SRC_URI_append = " file://tee-supplicant.service"
+
 S = "${WORKDIR}/git"
+SYSTEMD_SERVICE_${PN} = "tee-supplicant.service"
 
 do_compile () {
     if [ ${DEFAULTTUNE} = "aarch64" ]; then
@@ -20,12 +25,18 @@ do_compile () {
 }
 
 do_install () {
-    install -d ${D}/usr/lib
-    install ${S}/out/export/lib/* ${D}/usr/lib/
-    install -d ${D}/usr/bin
-    install ${S}/out/export/bin/tee-supplicant ${D}/usr/bin/
-    install -d ${D}/usr/include
-    install ${S}/out/export/include/* ${D}/usr/include/
+	oe_runmake install
+
+	install -D -p -m0644 ${S}/out/export/lib/libteec.so.1.0 ${D}${libdir}/libteec.so.1.0
+	ln -sf libteec.so.1.0 ${D}${libdir}/libteec.so
+	ln -sf libteec.so.1.0 ${D}${libdir}/libteec.so.1
+
+	install -D -p -m0755 ${S}/out/export/bin/tee-supplicant ${D}${bindir}/tee-supplicant
+
+	cp -a ${S}/out/export/include ${D}/usr/
+
+	sed -i -e s:/etc:${sysconfdir}:g -e s:/usr/bin:${bindir}:g ${WORKDIR}/tee-supplicant.service
+	install -D -p -m0644 ${WORKDIR}/tee-supplicant.service ${D}${systemd_system_unitdir}/tee-supplicant.service
 }
 
 PACKAGES += "tee-supplicant"

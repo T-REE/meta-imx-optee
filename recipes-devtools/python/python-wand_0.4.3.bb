@@ -15,3 +15,5 @@ inherit setuptools
 DEPENDS += " imagemagick-native"
 
 BBCLASSEXTEND = "native"
+
+INSANE_SKIP_${PN} = "installed-vs-shipped"

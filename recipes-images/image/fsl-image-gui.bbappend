@@ -1,0 +1,2 @@
+inherit image_types_fsl_tee
+
