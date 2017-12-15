@@ -73,4 +73,4 @@ FILES_${PN} = "/lib/firmware/"
 FILES_${PN}-dev = "/usr/include/optee"
 INSANE_SKIP_${PN}-dev = "staticdev"
 
-COMPATIBLE_MACHINE = "(mx6|mx6ul|mx7)"
+COMPATIBLE_MACHINE = "(mx6|mx7|mx8m)"
