@@ -33,17 +33,11 @@ do_install () {
     install -d ${D}/usr/bin
     install ${S}/out/xtest/xtest ${D}/usr/bin/
 
-    if [ ${DEFAULTTUNE} = "aarch64" ]; then
-        install -d ${D}/lib64/optee_armtz
-        find ${S}/out/ta -name '*.ta' | while read name; do
-            install -m 444 $name ${D}/lib64/optee_armtz/
-        done
-    else
-        install -d ${D}/lib/optee_armtz
-        find ${S}/out/ta -name '*.ta' | while read name; do
-            install -m 444 $name ${D}/lib/optee_armtz/
-        done
-    fi
+    install -d ${D}/lib/optee_armtz
+    find ${S}/out/ta -name '*.ta' | while read name; do
+    	install -m 444 $name ${D}/lib/optee_armtz/
+    done
+
 }
 
 FILES_${PN} = "/usr/bin/ /lib*/optee_armtz/"

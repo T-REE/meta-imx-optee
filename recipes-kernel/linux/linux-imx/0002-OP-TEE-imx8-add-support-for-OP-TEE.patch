@@ -1,0 +1,48 @@
+From 46499fc3ba90301d2efb8b492d89a95d017e9b8b Mon Sep 17 00:00:00 2001
+From: Silvano di Ninno <silvano.dininno@nxp.com>
+Date: Tue, 16 Jan 2018 09:35:09 +0100
+Subject: [PATCH] [OP-TEE] imx8 add support for OP-TEE
+
+update AARCH64 defcong to include OP-TEE driver
+update i.MX 8m EVK device tree to include OP-TEE node
+
+Signed-off-by: Silvano di Ninno <silvano.dininno@nxp.com>
+---
+ arch/arm64/boot/dts/freescale/fsl-imx8mq-evk.dts | 7 +++++++
+ arch/arm64/configs/defconfig                     | 2 ++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/freescale/fsl-imx8mq-evk.dts b/arch/arm64/boot/dts/freescale/fsl-imx8mq-evk.dts
+index ba74705..c3ead4d 100644
+--- a/arch/arm64/boot/dts/freescale/fsl-imx8mq-evk.dts
++++ b/arch/arm64/boot/dts/freescale/fsl-imx8mq-evk.dts
+@@ -31,6 +31,13 @@
+ 		stdout-path = &uart1;
+ 	};
+ 
++	firmware {
++		optee {
++			compatible = "linaro,optee-tz";
++			method = "smc";
++		};
++	};
++
+ 	regulators {
+ 		compatible = "simple-bus";
+ 		#address-cells = <1>;
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 8756ded..3fc463a 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -555,6 +555,8 @@ CONFIG_NVMEM_IMX_OCOTP=y
+ CONFIG_NVMEM_IMX_SCU_OCOTP=y
+ CONFIG_ARM_SCPI_PROTOCOL=y
+ CONFIG_ACPI=y
++CONFIG_TEE=y
++CONFIG_OPTEE=y
+ CONFIG_EXT2_FS=y
+ CONFIG_EXT3_FS=y
+ CONFIG_EXT4_FS_POSIX_ACL=y
+-- 
+2.7.4
+

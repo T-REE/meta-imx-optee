@@ -91,9 +91,12 @@ echo "BBLAYERS += \" \${BSPDIR}/sources/meta-imx-optee \"" >> conf/bblayers.conf
 echo "ALLOW_EMPTY_uboot-optee-imx = \"1\"" >> conf/local.conf
 echo "INSANE_SKIP_optee-test = \"dev-deps\"" >> conf/local.conf
 echo "FSL_USE_GIT = \"\"" >> conf/local.conf
+
+if [ "${MACHINE}" != "imx8mqevk" ]; then
 echo "KERNEL_DEVICETREE_append = \" \${IMX_KERNEL_DEVICETREE_BASE}-optee.dtb \"" >> conf/local.conf
 echo "UBOOT_CONFIG = \"sd-optee\"" >> conf/local.conf
 echo "UBOOT_CONFIG[sd-optee] = \"\${IMX_UBOOT_CONFIG_BASE}_optee_config,sdcard\"" >> conf/local.conf
+fi
 echo "DISTRO_FEATURES_append = \" optee \"" >> conf/local.conf
 
 echo >> conf/bblayers.conf

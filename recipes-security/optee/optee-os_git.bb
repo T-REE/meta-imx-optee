@@ -51,6 +51,10 @@ do_mkimage () {
    IMX_LOAD_ADDR=`cat ${B}/core/tee-init_load_addr.txt` && \
    ${S}/mkimage -A arm -O linux -C none -a ${IMX_LOAD_ADDR} -e ${IMX_LOAD_ADDR} \
 	-d ${DEPLOY_DIR_IMAGE}/tee.${OPTEE_PLATFORM}.bin ${DEPLOY_DIR_IMAGE}/uTee-${OPTEE_BIN_EXT}
+
+    cd ${DEPLOY_DIR_IMAGE}
+    ln -sf tee.${OPTEE_PLATFORM}.bin tee.bin
+    cd -
 }
 
 
