@@ -29,9 +29,14 @@ OPTEE_ARCH ?= "arm32"
 OPTEE_ARCH_armv7a = "arm32"
 OPTEE_ARCH_aarch64 = "arm64"
 
-
+# Optee-os can be built for 32 bits and 64 bits at the same time
+# as long as the compilers are correctly defined.
+# For 64bits, CROSS_COMPILE64 must be set
+# When defining CROSS_COMPILE and CROSS_COMPILE64, we assure that
+# any 32 or 64 bits builds will pass
 EXTRA_OEMAKE = "PLATFORM=imx PLATFORM_FLAVOR=${OPTEE_PLATFORM} \
                 CROSS_COMPILE=${HOST_PREFIX} \
+                CROSS_COMPILE64=${HOST_PREFIX} \
                 NOWERROR=1 \
                 LDFLAGS= \
 		O=${B} \
