@@ -75,7 +75,7 @@ do_install () {
     done
 }
 
-addtask do_mkimage after do_compile before do_install
+addtask mkimage after do_compile before do_install
 
 
 FILES_${PN} = "/lib/firmware/"
