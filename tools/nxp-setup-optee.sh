@@ -40,7 +40,7 @@ optee_usage()
 optee_cleanup()
 {
     echo -e "Cleaning up variables"
-    unset BUILD_DIR OPTEEDISTRO RELEASE MACHINE
+    unset BUILD_DIR OPTEEDISTRO RELEASE board
     unset nxp_setup_help nxp_setup_error nxp_setup_flag
     unset optee_usage optee_cleanup optee_exit_message
 }
@@ -58,8 +58,8 @@ do
         b) BUILD_DIR="$OPTARG";
            echo -e "\n Build directory is " $BUILD_DIR
            ;;
-        m) MACHINE="$OPTARG";
-            echo -e "\n Machine is " $MACHINE
+        m) board="$OPTARG";
+            echo -e "\n Machine is " $board
             ;;
         r) RELEASE="$OPTARG";
             echo -e "\n Release is " $RELEASE
@@ -83,16 +83,16 @@ if [ -z "${BUILD_DIR}" ]; then
 	BUILD_DIR=build-optee
 fi
 
-if [ -z "${MACHINE}" ]; then
-	MACHINE="imx7dsabresd"
+if [ -z "${board}" ]; then
+	board="imx7dsabresd"
 fi
 
 if [ -z "${OPTEEDISTRO}" ]; then
     OPTEEDISTRO="fsl-imx-x11"
 fi
 
-echo EULA=1 DISTRO=$OPTEEDISTRO MACHINE=$MACHINE source $RELEASEPROGNAME -b $BUILD_DIR
-EULA=1 DISTRO=$OPTEEDISTRO MACHINE=$MACHINE source $RELEASEPROGNAME -b $BUILD_DIR
+echo EULA=1 DISTRO=$OPTEEDISTRO MACHINE=$board source $RELEASEPROGNAME -b $BUILD_DIR
+EULA=1 DISTRO=$OPTEEDISTRO MACHINE=$board source $RELEASEPROGNAME -b $BUILD_DIR
 
 source ../sources/meta-imx-optee/tools/hook-in-optee.sh
 

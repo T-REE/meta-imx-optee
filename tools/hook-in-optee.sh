@@ -13,8 +13,8 @@ echo >> conf/bblayers.conf
 echo "INSANE_SKIP_optee-test = \"dev-deps\"" >> conf/local.conf
 echo "FSL_USE_GIT = \"\"" >> conf/local.conf
 
-if [ "${MACHINE}" != "imx8mqevk" ]; then
-    if [ "${MACHINE}" != "imx7ulpevk" ]; then
+if [ "${board}" != "imx8mqevk" ]; then
+    if [ "${board}" != "imx7ulpevk" ]; then
         echo "KERNEL_DEVICETREE_append = \" \${IMX_KERNEL_DEVICETREE_BASE}-optee.dtb \"" >> conf/local.conf
     fi
     echo "UBOOT_CONFIG = \"sd-optee\"" >> conf/local.conf
