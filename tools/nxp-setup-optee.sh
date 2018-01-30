@@ -40,7 +40,7 @@ optee_usage()
 optee_cleanup()
 {
     echo -e "Cleaning up variables"
-    unset BUILD_DIR OPTEEDISTRO RELEASE board
+    unset BUILD_DIR OPTEEDISTRO RELEASE
     unset nxp_setup_help nxp_setup_error nxp_setup_flag
     unset optee_usage optee_cleanup optee_exit_message
 }
