@@ -10,7 +10,6 @@ echo >> conf/bblayers.conf
 
 # Configs for OPTEE build
 
-echo "INSANE_SKIP_optee-test = \"dev-deps\"" >> conf/local.conf
 echo "FSL_USE_GIT = \"\"" >> conf/local.conf
 
 if [ "${board}" != "imx8mqevk" ]; then
@@ -20,6 +19,7 @@ if [ "${board}" != "imx8mqevk" ]; then
     echo "UBOOT_CONFIG = \"sd-optee\"" >> conf/local.conf
     echo "UBOOT_CONFIG[sd-optee] = \"\${IMX_UBOOT_CONFIG_BASE}_optee_config,sdcard\"" >> conf/local.conf
 fi
-echo "DISTRO_FEATURES_append = \" optee \"" >> conf/local.conf
 
-
+echo "-----------------------------------------------------------------------------------------------"
+echo "   Optee layer enabled. Check details in conf/bblayers.conf and conf/local.conf  "
+echo "-----------------------------------------------------------------------------------------------"
