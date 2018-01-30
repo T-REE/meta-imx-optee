@@ -1,4 +1,4 @@
-# Copyright (C) 2017 NXP
+# Copyright (C) 2017-2018 NXP
 
 SUMMARY = "OPTEE test"
 HOMEPAGE = "http://www.optee.org/"
@@ -6,6 +6,7 @@ HOMEPAGE = "http://www.optee.org/"
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://LICENSE.md;md5=daa2bcccc666345ab8940aab1315a4fa"
 
+inherit pythonnative
 DEPENDS = "optee-os optee-client"
 
 SRC_URI = "git://bitbucket.sw.nxp.com/scm/imx/imx-optee-test.git;branch=imx_2.5.y;protocol=http"
