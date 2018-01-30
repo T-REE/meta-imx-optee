@@ -7,7 +7,7 @@ LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://LICENSE.md;md5=daa2bcccc666345ab8940aab1315a4fa"
 
 inherit pythonnative
-DEPENDS = "optee-os optee-client"
+DEPENDS = "optee-os optee-client python-pycrypto-native"
 
 SRC_URI = "git://bitbucket.sw.nxp.com/scm/imx/imx-optee-test.git;branch=imx_2.5.y;protocol=http"
 SRCREV = "${AUTOREV}"
