@@ -1,7 +1,5 @@
 DEPENDS += "optee-os"
 
-COMPATIBLE_MACHINE = "(mx8mq)"
-
 do_compile_prepend () {
     if [ "${SOC_TARGET}" = "iMX8M" ]; then
         cp ${DEPLOY_DIR_IMAGE}/tee.bin             ${S}/${SOC_TARGET}/
