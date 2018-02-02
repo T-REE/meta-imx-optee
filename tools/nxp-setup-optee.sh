@@ -92,7 +92,7 @@ if [ -z "${board}" ]; then
 fi
 
 if [ -z "${OPTEEDISTRO}" ]; then
-    OPTEEDISTRO="internal-xwayland-optee"
+    OPTEEDISTRO="fsl-imx-internal-xwayland-optee"
 fi
 
 echo EULA=1 DISTRO=$OPTEEDISTRO MACHINE=$board source $RELEASEPROGNAME -b $BUILD_DIR
