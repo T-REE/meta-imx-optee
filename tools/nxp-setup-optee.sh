@@ -28,11 +28,12 @@ optee_usage()
 {
     echo -e "\nDescription: nxp-setup-optee.sh will setup the bblayers and local.conf for an Optee build."
     echo -e "\nUsage: source nxp-setup-optee.sh
-    Optional parameters: [-b build-dir] [-r release] [-m machine] [-h]"
+    Optional parameters: [-b build-dir] [-r release] [-m machine] [-d distro] [-h]"
     echo "
     * [-b build-dir]: Build directory, if unspecified, script uses 'build-optee' as the output directory
     * [-m machine]: Machine to build, default imx7dsabresd
-    * [-r release]: Select internal or external release 
+    * [-r release]: Select internal or external release
+    * [-d distro]: Distro
     * [-h]: help
 "
 }
@@ -52,7 +53,7 @@ OPTIND=1
 
 echo -e "Reading command line parameters"
 # Read command line parameters
-while getopts ":b:m:r:h" nxp_setup_flag
+while getopts ":b:m:r:d:h" nxp_setup_flag
 do
     case $nxp_setup_flag in
         b) BUILD_DIR="$OPTARG";
@@ -63,6 +64,9 @@ do
             ;;
         r) RELEASE="$OPTARG";
             echo -e "\n Release is " $RELEASE
+            ;;
+        d) OPTEEDISTRO="$OPTARG";
+            echo -e " \n Distro is " $OPTEEDISTRO
             ;;
         h) nxp_setup_help='true';
            ;;
@@ -88,7 +92,7 @@ if [ -z "${board}" ]; then
 fi
 
 if [ -z "${OPTEEDISTRO}" ]; then
-    OPTEEDISTRO="imx-xwayland-optee"
+    OPTEEDISTRO="internal-xwayland-optee"
 fi
 
 echo EULA=1 DISTRO=$OPTEEDISTRO MACHINE=$board source $RELEASEPROGNAME -b $BUILD_DIR
