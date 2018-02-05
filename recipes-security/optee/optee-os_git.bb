@@ -49,15 +49,15 @@ do_compile () {
 }
 
 
-do_mkimage () {
-   install -d ${DEPLOY_DIR_IMAGE}
-   ${TARGET_PREFIX}objcopy -O binary ${B}/core/tee.elf ${DEPLOY_DIR_IMAGE}/tee.${OPTEE_PLATFORM}.bin
+do_deploy () {
+   install -d ${DEPLOYDIR}
+   ${TARGET_PREFIX}objcopy -O binary ${B}/core/tee.elf ${DEPLOYDIR}/tee.${OPTEE_PLATFORM}.bin
 
    IMX_LOAD_ADDR=`cat ${B}/core/tee-init_load_addr.txt` && \
    ${S}/mkimage -A arm -O linux -C none -a ${IMX_LOAD_ADDR} -e ${IMX_LOAD_ADDR} \
-	-d ${DEPLOY_DIR_IMAGE}/tee.${OPTEE_PLATFORM}.bin ${DEPLOY_DIR_IMAGE}/uTee-${OPTEE_BIN_EXT}
+	-d ${DEPLOYDIR}/tee.${OPTEE_PLATFORM}.bin ${DEPLOYDIR}/uTee-${OPTEE_BIN_EXT}
 
-    cd ${DEPLOY_DIR_IMAGE}
+    cd ${DEPLOYDIR}
     ln -sf tee.${OPTEE_PLATFORM}.bin tee.bin
     cd -
 }
@@ -75,7 +75,7 @@ do_install () {
     done
 }
 
-addtask mkimage after do_compile before do_install
+addtask deploy after do_compile before do_install
 
 
 FILES_${PN} = "/lib/firmware/"
