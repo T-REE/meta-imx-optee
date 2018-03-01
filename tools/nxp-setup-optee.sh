@@ -3,6 +3,7 @@
 # NXP Build Enviroment Setup Script
 #
 # Copyright (C) 2015-2016 Freescale Semiconductor
+# Copyright 2017-2018 NXP
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,13 +29,11 @@ optee_usage()
 {
     echo -e "\nDescription: nxp-setup-optee.sh will setup the bblayers and local.conf for an Optee build."
     echo -e "\nUsage: source nxp-setup-optee.sh
-    Optional parameters: [-b build-dir] [-r release] [-m machine] [-d distro] [-k kernel] [-h]"
+    Optional parameters: [-b build-dir] [-m machine] [-d distro] [-h]"
     echo "
     * [-b build-dir]: Build directory, if unspecified, script uses 'build-optee' as the output directory
-    * [-m machine]: Machine to build, default imx7dsabresd
-    * [-r release]: Select internal or external release
+    * [-m machine]: Machine to build, default imx8mqevk
     * [-d distro]: Distro
-    * [-k kernel]: Kernel version
     * [-h]: help
 "
 }
@@ -63,14 +62,8 @@ do
         m) board="$OPTARG";
             echo -e "\n Machine is " $board
             ;;
-        r) RELEASE="$OPTARG";
-            echo -e "\n Release is " $RELEASE
-            ;;
         d) OPTEEDISTRO="$OPTARG";
             echo -e " \n Distro is " $OPTEEDISTRO
-            ;;
-        k) kernel="$OPTARG";
-            echo -e "\n Kernel is " $kernel
             ;;
         h) nxp_setup_help='true';
            ;;
@@ -81,33 +74,23 @@ done
 
 OPTIND=$OLD_OPTIND
 
-if [ "$RELEASE" = "external" ]; then
-    RELEASEPROGNAME="./fsl-setup-release.sh"
-else
-    RELEASEPROGNAME="./fsl-setup-internal-build.sh"
-fi
+RELEASEPROGNAME="./fsl-setup-release.sh"
 
 if [ -z "${BUILD_DIR}" ]; then
 	BUILD_DIR=build-optee
 fi
 
 if [ -z "${board}" ]; then
-	board="imx7dsabresd"
+	board="imx8mqevk"
 fi
 
 if [ -z "${OPTEEDISTRO}" ]; then
-    OPTEEDISTRO="fsl-imx-internal-xwayland-optee"
-fi
-
-if [ -z "${kernel}" ]; then
-    kernel="4.9"
+    OPTEEDISTRO="imx-xwayland-optee"
 fi
 
 
-echo EULA=1 DISTRO=$OPTEEDISTRO MACHINE=$board source $RELEASEPROGNAME -b $BUILD_DIR -k $kernel
-EULA=1 DISTRO=$OPTEEDISTRO MACHINE=$board source $RELEASEPROGNAME -b $BUILD_DIR -k $kernel
-
-source ../sources/meta-imx-optee/tools/hook-in-optee.sh
+echo "DISTRO=$OPTEEDISTRO MACHINE=$board source $RELEASEPROGNAME -b $BUILD_DIR"
+DISTRO=$OPTEEDISTRO MACHINE=$board source $RELEASEPROGNAME -b $BUILD_DIR
 
 optee_exit_message
 optee_cleanup
