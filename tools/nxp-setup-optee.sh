@@ -91,6 +91,7 @@ fi
 
 echo "DISTRO=$OPTEEDISTRO MACHINE=$board source $RELEASEPROGNAME -b $BUILD_DIR"
 DISTRO=$OPTEEDISTRO MACHINE=$board source $RELEASEPROGNAME -b $BUILD_DIR
+source ../sources/meta-imx-optee/tools/hook-in-optee.sh
 
 optee_exit_message
 optee_cleanup
