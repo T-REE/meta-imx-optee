@@ -1,4 +1,4 @@
-# Copyright 2017 NXP
+# Copyright 2017-2018 NXP
 # Released under the MIT license (see COPYING.MIT for the terms)
 
 DESCRIPTION = "Add extra packages for optee build"
@@ -8,9 +8,4 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d
 
 inherit packagegroup
 
-IMX_OPTEE_INSTALL = "${@bb.utils.contains('COMBINED_FEATURES', 'optee', 'optee-client optee-os optee-test', '', d)}"
-
-RDEPENDS_${PN} += " \
-	${IMX_OPTEE_INSTALL} \
-"
-
+RDEPENDS_${PN} += "optee-client optee-test"
